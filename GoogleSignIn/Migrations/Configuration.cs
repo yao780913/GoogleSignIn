@@ -6,14 +6,14 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ProjectContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DbEntities>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ProjectContext context)
+        protected override void Seed(DbEntities context)
         {
             //  This method will be called after migrating to the latest version.
 

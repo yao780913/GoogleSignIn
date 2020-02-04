@@ -1,0 +1,66 @@
+﻿@model GoogleSignIn.UsersViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("AddRole", "Users"))
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary"> Click to create New Roles</button>
+}
+
+@if (!Model.Roles.Any())
+{
+    <p>No Roles Record...</p>
+}
+else
+{
+    var firstRole = Model.Roles.First();
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => firstRole.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => firstRole.Name)
+            </th>
+        </tr>
+        @foreach (var role in Model.Roles)
+        {
+
+            <tr>
+                <td>@role.Id</td>
+                <td>@role.Name</td>
+            </tr>
+        }
+    </table>
+}
+
+@if (!Model.Users.Any())
+{
+    <p>No Users Record...</p>
+}
+else
+{
+    var firstUser = Model.Users.First();
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => firstUser.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => firstUser.Name)
+            </th>
+        </tr>
+        @foreach (var user in Model.Users)
+        {
+
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Name</td>
+            </tr>
+        }
+    </table>
+}

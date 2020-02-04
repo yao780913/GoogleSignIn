@@ -6,7 +6,7 @@ using System.Web;
 
 namespace GoogleSignIn.Models
 {
-    public class ProjectContext: DbContext
+    public class DbEntities: DbContext
     {
         public DbSet<User> Users { get; set; }
 
