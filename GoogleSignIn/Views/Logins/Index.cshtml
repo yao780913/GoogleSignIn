@@ -1,0 +1,17 @@
+﻿@model GoogleSignIn.ViewModels.LoginViewModels
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+
+
+@Html.BeginForm("AddRoles", "Logins")
+{
+    
+    <button type="submit"> Click to create New Roles</button>
+}
+
+
