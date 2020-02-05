@@ -8,6 +8,11 @@ namespace GoogleSignIn.Models
 {
     public class DbEntities: DbContext
     {
+        public DbEntities()
+            :base("DbEntities")
+        {
+
+        }
         public DbSet<User> Users { get; set; }
 
         public DbSet<Role> Roles { get; set; }

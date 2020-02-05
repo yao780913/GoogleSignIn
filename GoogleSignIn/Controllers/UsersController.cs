@@ -5,12 +5,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Threading.Tasks;
+using Google.Apis.Auth;
+using System.Web.Configuration;
 
 namespace GoogleSignIn.Controllers
 {
     public class UsersController : Controller
     {
-        private DbEntities _dbcontext;
+        private readonly DbEntities _dbcontext;
         public UsersController()
         {
             _dbcontext = new DbEntities();
@@ -32,7 +35,7 @@ namespace GoogleSignIn.Controllers
         {
             var role = new Role()
             {
-                Name = "測試腳色"
+                Name = "測試角色"
             };
 
             _dbcontext.Roles.Add(role);
@@ -41,8 +44,13 @@ namespace GoogleSignIn.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateUserByGoogle()
+        {
+            var user = new User();
 
-
-
+            return RedirectToAction("Index");
+        }
     }
 }
