@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace GoogleSignIn.Models
+namespace GoogleSignIn
 {
     public class DbEntities: DbContext
     {

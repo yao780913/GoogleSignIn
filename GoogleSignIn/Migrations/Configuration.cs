@@ -1,6 +1,6 @@
 ﻿namespace GoogleSignIn.Migrations
 {
-    using GoogleSignIn.Models;
+    using GoogleSignIn;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;

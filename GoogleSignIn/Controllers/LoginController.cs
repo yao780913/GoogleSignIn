@@ -11,6 +11,11 @@ namespace GoogleSignIn.Controllers
 {
     public class LoginController : Controller
     {
+        private DbEntities _dbContext;
+        public LoginController()
+        {
+            _dbContext = new DbEntities();
+        }
         // GET: Login
         public ActionResult Index()
         {
@@ -43,17 +48,50 @@ namespace GoogleSignIn.Controllers
                 return Content($"Exception: {ex.Message}");
             }
 
-            if (payload != null)
+            if (payload == null)
             {
-                string user_id = payload.Subject;
-                return Content($"你的 user_id: {user_id}");
+                return null;
+
             }
 
-            return null;
+            string email = payload.Email;
+            if (_dbContext.Users.Where(u => u.Email == email).Any()) // if 使用者已存在
+                return Content(Url.Action("Index", "Users"));
+
+            return Content(Url.Action("Register", routeValues: new { email = email }));
         }
+
         private static GoogleJsonWebSignature.ValidationSettings GoogleValidationSetting => new GoogleJsonWebSignature.ValidationSettings()
         {
             Audience = new List<string>() { WebConfigurationManager.AppSettings["GoogleClientId"] }
         };
+
+        public ActionResult Register(string email)
+        {
+            var viewModel = new RegisterViewModel()
+            {
+                Gmail = email,
+                Roles = _dbContext.Roles.ToList(),
+                User = new User()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Email = email
+                }
+            };
+            return View(viewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(User user)
+        {
+            var isUserExists = _dbContext.Users.Where(u => u.Email == user.Email).Any();
+            if (isUserExists)
+            {
+                _dbContext.Users.Add(user);
+                _dbContext.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Users");
+        }
     }
 }

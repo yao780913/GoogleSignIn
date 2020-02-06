@@ -54,8 +54,8 @@
                     url: redirectUrl,
                     method: "POST",
                     data: { id_token: id_token },
-                    success: function (msg) {
-                        console.log(msg);
+                    success: function (result) {
+                        location.href = result;
                     },
                     error: function (msg) {
                         console.log("error: " + msg);
@@ -67,6 +67,7 @@
                     console.log(error);
                 });
         }
+
 
         function GoogleDisconnect() {
             let auth2 = gapi.auth2.getAuthInstance();
